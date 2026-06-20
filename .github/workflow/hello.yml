@@ -1,23 +1,33 @@
-# Workflow
+# This is workflow name
+name: Hello 
 
-name: Hello
-
-# On tells when the workflow should run
-
+# runs on an automatic trigger, whenever change is pushed to branch (deployment)
 on:
+  # workflow_dispatch:
+  push:
+    branches: [main]
+  #   paths:
+  #     - '**.html'
 
-workflow_dispatch:
+  pull_request:
+    branches: [main]
 
-# Job tells what the workflow should do
-
+# these are jobs inside the workflow
 jobs:
 
-say-hello:
+  # this is the name of the job
+  greet:
+    # this is github runner, each job runs on a runner
+    runs-on: ubuntu-latest
+    steps:
+      - name: say hello to users
+        run: echo "Hello Dosto"
 
-runs-on: ubuntu-latest
+      - name: say hello to username
+        run: echo "Hello $USER"
 
-steps:
-
-- name: Say hello to everyone
-
-run: echo "Hello Dosto"
+  details:
+    runs-on: ubuntu-latest
+    steps:
+      - name: version of python, docker, etc
+        run: docker --version && python --version
